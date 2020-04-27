@@ -1,0 +1,343 @@
+import java.util.Random;
+
+public class ModuleThree 
+{ 
+ public static void main(String[] args)
+ {
+  int[] random;
+  int[] random2;
+  int[] random3;
+
+  //Generate 10 random lists of 1000 items
+  for(int index = 1; index <= 10; index++)
+  {
+   System.out.println("*********EXECUTIONS: " + index + "*********");
+   
+   //Unsorted List
+   random = randomListGen(1000);
+   
+   int[] rand1 = random; //reference to original array
+   int[] randV1 = random;
+
+   System.out.println("Unsorted List: ");
+   printList(random);
+   
+
+   //Sorted List
+   random2 = randomListGen(1000);
+   sort(random2);
+   
+   int[] rand2 = random2; 
+   int[] randV2 = random2;
+
+   System.out.println("Sorted List: ");
+   printList(random2);
+
+   
+   //Reverse List
+   random3 = randomListGen(1000);
+   reverseSort(random3);
+   
+   int[] rand3 = random3;
+   int[] randV3 = random3;
+
+   System.out.println("Unsorted List: ");
+   printList(random3);
+
+
+   //Version One QuickSort
+   System.out.println("*******QUICKSORT VERSION ONE*******");
+   System.out.println("Unsorted to Quicksorted: ");
+   printList(random);
+
+   quickSortV1(random2);
+   System.out.println("Sorted to Quicksorted: ");
+   printList(random2);
+
+   quickSortV1(random3);
+   System.out.println("Reverse Sorted to Quicksorted: ");
+   printList(random3);
+   
+
+   //Version Two QuickSort
+   System.out.println("*******QUICKSORT VERSION TWO*******");
+   quickSortV3(rand1);
+   System.out.println("Unsorted to Quicksorted: ");
+   printList(rand1);
+
+   
+   quickSortV3(rand2);
+   System.out.println("Sorted to Quicksorted: ");
+   printList(rand2);
+
+   quickSortV3(rand3);
+   System.out.println("Reverse Sorted to Quicksorted: ");
+   printList(rand3);
+   
+   //Version Three QuickSort
+   System.out.println("*******QUICKSORT VERSION THREE*******");
+   quickSortV3(randV1);
+   System.out.println("Unsorted to Quicksorted: ");
+   printList(randV1);
+
+   quickSortV3(randV2);
+   System.out.println("Sorted to Quicksorted: ");
+   printList(randV2);
+
+   quickSortV3(randV3);
+   System.out.println("Reverse Sorted to Quicksorted: ");
+   printList(randV3);
+  }
+ }
+
+ 
+ //Print list to screen
+ public static void printList(int[] array) 
+ {
+  for (int index = 0; index < array.length; index++)
+  {
+   System.out.print(array[index] + " ");
+  }
+  System.out.println("\n");
+ }
+
+
+ //Generate a random list
+ public static int[] randomListGen(int x)
+ {
+  int[] randomList = new int[x]; //Declare size
+
+  Random randomNum = new Random(); //Random object 
+
+  for(int index = 0; index < x; index++)
+  {
+   randomList[index] = randomNum.nextInt(100); //100 is exclusive
+  }
+
+  return randomList; 
+ }
+
+ //Sort from low to high
+ public static void sort(int[] array)
+ {
+  int lastPos; //Position of last element
+  int index; 
+
+  for(lastPos = array.length - 1; lastPos >= 0; lastPos--)
+  {
+   for(index = 0; index <= lastPos -1; index++) 
+   {
+    //Compare elements
+    if(array[index] > array[index + 1]) 
+    {                  
+     //Swap values
+     swap(array, index, index + 1);
+    }
+   }
+  }     
+ }
+
+
+ //Sort from high to low 
+ public static void reverseSort(int[] array)
+ {
+  int lastPos;
+  int index; 
+
+  for(lastPos = 0; lastPos <= array.length - 1; lastPos++)
+  {
+   for(index = 0; index <= lastPos -1; index++)
+   {                                                   
+    //Compare elements
+    if(array[index] < array[index + 1]) 
+    {                  
+     //Swap values
+     swap(array, index, index + 1);
+    }
+   }
+  }     
+ }
+
+
+ //VERSION ONE QUICKSORT
+ public static void quickSortV1(int a[])
+ {
+  quickSort(a, 0, a.length - 1);  
+
+ }
+
+ private static void quickSort(int[] array, int index, int end)
+ { 
+  int pivotPosition;
+
+  if(index < end)
+  {   
+   pivotPosition = partition(array, index, end); //Get pivot
+
+   quickSort(array, index, pivotPosition - 1); //left sublist recursive call
+   quickSort(array, pivotPosition + 1, end); //right sublist
+  }   
+ }
+
+
+ private static int partition (int[] a, int index, int end)
+ {
+  int pivotValue;
+  int leftLast; //last element of the left sublist
+  int mid; //hold the mid-point subscript
+
+  mid = (index + end)/2; //will be pivot
+
+  swap(a, index, mid); 
+
+  pivotValue = a[index]; //save pivot for comparisons 
+
+  leftLast = index; //temporary assignment
+
+  //Move elements less than pivot to the left sublist
+  for (int scan = index + 1; scan <= end; scan++) //scans list
+  {
+   if(a[scan] < pivotValue)
+   {
+    swap(a, leftLast, scan);
+   }
+  }
+
+  swap(a, index, leftLast); //pivot moved to end of the left sublist
+
+  return leftLast; //return position of pivot value
+ }
+
+ //Swap values
+ private static void swap(int[] a, int x, int y)
+ {
+  int temp;
+
+  //swap
+  temp = a[x];   
+  a[x] = a[y];
+  a[y] = temp;
+ }
+
+
+ //VERSION TWO QUICKSORT
+ public static void quickSortV2(int a[])
+ {
+  quickSort2(a, 0, a.length - 1);  
+
+ }
+
+ private static void quickSort2(int[] array, int index, int end)
+ { 
+  int pivotPosition;
+
+  if(index < end)
+  {   
+   pivotPosition = partition2(array, index, end); 
+
+   quickSort2(array, index, pivotPosition - 1); 
+   quickSort2(array, pivotPosition + 1, end); 
+  }   
+ }
+
+
+ private static int partition2 (int[] a, int index, int end)
+ {
+  int pivotValue;
+  int leftLast; 
+  Random randomNum = new Random(); //random object
+  
+  //Random pivot
+  int random = randomNum.nextInt(end); //will be pivot
+  System.out.println("V2 pivot: " + random);  
+
+  swap(a, index, random);
+  
+  pivotValue = a[index];  
+
+  leftLast = index; 
+
+  //Move elements less than pivot to the left sublist
+  for (int scan = index + 1; scan <= end; scan++)
+  {
+   if(a[scan] < pivotValue)
+   {
+    swap(a, leftLast, scan); 
+   }
+  }
+
+  swap(a, index, leftLast); 
+
+  return leftLast; 
+ }
+
+ //VERSION THREE QUICKSORT
+ public static void quickSortV3(int a[])
+ {
+  quickSort3(a, 0, a.length - 1);  
+
+ }
+
+ private static void quickSort3(int[] array, int index, int end)
+ { 
+  int pivotPosition;
+
+  if(index < end)
+  {   
+   pivotPosition = partition3(array, index, end);
+   
+   quickSort3(array, index, pivotPosition - 1);
+   quickSort3(array, pivotPosition + 1, end);
+  }   
+ }
+
+
+ private static int partition3(int[] a, int index, int end)
+ {
+  int pivotValue;
+  int leftLast; 
+  int mid;   
+
+  mid = (index + end)/2;
+  
+  //first is pivot
+  if(a[index] > a[mid] && a[index] < a[end])
+  {
+   swap(a, index, index); 
+  }
+  
+  //middle is pivot
+  if(a[mid] > a[index] && a[mid] < a[end])
+  {
+   swap(a, index, mid); 
+  }
+  
+  //last is pivot
+  if(a[end] > a[mid] && a[end] < a[index])
+  {
+   swap(a, index, end); 
+  }
+  
+
+  pivotValue = a[index];
+
+  leftLast = index; 
+
+  //Move elements less than pivot to the left sublist
+  for (int scan = index + 1; scan <= end; scan++) 
+  {
+   if(a[scan] < pivotValue)
+   {
+    swap(a, leftLast, scan);
+   }
+  }
+
+  swap(a, index, leftLast); 
+
+  return leftLast;
+ }
+
+
+
+}
+

@@ -1,0 +1,289 @@
+import java.util.Random;
+
+public class ModuleTwo 
+{
+ public static int swapTotal = 0;
+ public static int compTotal = 0;
+
+ public static void main(String[] args)
+ {  
+  //Declaration of array variables
+  int[] randomList = new int[10];
+  int[] randomList2 = new int[100];
+  int[] randomList3 = new int[1000];
+
+  Random randomNum = new Random(); //Random object 
+
+  //Generate random list of 10 integers
+  for(int index = 0; index < 10; index++)
+  {
+   randomList[index] = randomNum.nextInt(100); //100 is exclusive
+  }
+
+  System.out.println("\nOriginal Array of 10 items: ");
+  for(int x: randomList) //scans through each element of array
+  {
+   System.out.print(x + " ");
+  }
+
+  System.out.println();
+
+
+  //BUBBLESORT  
+  System.out.println("\n\n*****BUBBLE SORT*****");
+  System.out.print("Sorted Array: ");
+
+  bubbleSort(randomList);
+
+
+  //INSERTION SORT
+  System.out.println("\n\n*****INSERTION SORT*****");
+  System.out.print("Sorted Array: ");
+
+  insertionSort(randomList);
+
+  //QUICKSORT
+  System.out.println("\n\n*****QUICKSORT*****");
+  System.out.print("Sorted Array: " );
+
+  ModuleTwo.quickSortCall(randomList); 
+
+  System.out.println();
+
+
+
+
+  //Generate random list of 100 integers
+  for(int index = 0; index < 100; index++)
+  {
+   randomList2[index] = randomNum.nextInt(100);
+  }
+
+  System.out.println("\n\n\n\nOriginal array of 100 items: ");
+  for(int x: randomList2) //scans through each element of array
+  {
+   System.out.print(x + " ");
+  }
+  System.out.println();
+
+
+  //BUBBLESORT
+  System.out.println("\n\n*****BUBBLE SORT*****");
+  System.out.print("Sorted Array: ");
+
+  bubbleSort(randomList2);
+
+
+  //INSERTION SORT
+  System.out.println("\n\n*****INSERTION SORT*****");
+  System.out.print("Sorted Array: " );
+
+  insertionSort(randomList2); //call
+
+
+  //QUICKSORT
+  System.out.println("\n\n*****QUICKSORT*****");
+  System.out.print("Sorted Array: " );
+
+  ModuleTwo.quickSortCall(randomList2); 
+
+  System.out.println();
+
+
+
+
+  //Generate random list of 1000 integers
+  for(int index = 0; index < 1000; index++)
+  {
+   randomList3[index] = randomNum.nextInt(100);
+  }
+  System.out.println("\n\n\n\nOriginal array of 1000 items: ");
+  for(int x: randomList3) //scans through each element of array
+  {
+   System.out.print(x + " ");
+  }
+  System.out.println();
+
+
+  //BUBBLESORT
+  System.out.println("\n\n*****BUBBLE SORT*****");
+  System.out.print("Sorted Array: ");
+
+  bubbleSort(randomList3);
+
+
+  //INSERTION SORT
+  System.out.println("\n\n*****INSERTION SORT*****");
+  System.out.print("Sorted Array: " );
+
+  insertionSort(randomList3); //call
+
+
+  //QUICKSORT
+  System.out.println("\n\n*****QUICKSORT*****");
+  System.out.print("Sorted Array: " );
+
+  ModuleTwo.quickSortCall(randomList3); 
+
+  System.out.println();
+
+ }
+
+
+ public static void printList(int[] array) 
+ {
+  for (int index = 0; index < array.length; index++)
+  {
+   System.out.print(array[index] + " ");
+  }
+  System.out.println("\n");
+ }
+
+
+ public static void bubbleSort(int[] array)
+ {
+  int lastPos; //Position of last element
+  int index; 
+  int temp; //Used to swap element
+  int comp = 0; //Total number of comparisons
+  int swaps = 0; //Total number of swaps
+
+  for(lastPos = array.length - 1; lastPos >= 0; lastPos--) //lastPos = array.length - 1; lastPos >= 0; lastPos--
+  {
+   for(index = 0; index <= lastPos -1; index++) //stops when index = lastPos -1 instead of lastPos because 
+   {                                            //index and index + 1 must be swap later.
+    comp++;
+
+    //Compare elements
+    if(array[index] > array[index + 1]) 
+    {
+     swaps++;
+     
+     //Swap values
+             temp = array[index]; //temp holds value 
+             array[index] = array[index + 1]; //first element assigned second value
+             array[index + 1] = temp; //second element assigned first value */
+     
+    }
+   }
+  }
+
+  comp++;
+
+  printList(array); //print sorted array to screen
+
+  System.out.println("Comparisons: " + comp);
+  System.out.println("The total number of swaps: " + swaps);
+
+ }
+
+
+    public static void insertionSort(int[] arr)
+ {
+  int unsortedValue; 
+  int scan; //used to scan array
+  int comp = 0;
+  int swap = 0; 
+  
+
+  //The first unsorted value is actually the second value therefore index = 1
+ // for(int index = 1; index < array.length; index++)
+ // {
+   //unsortedValue = array[index]; 
+     // scan = index; //start scan at first unsolved part
+   
+
+      //Move the first element to be sorted
+  /* while (scan > 0 && array[scan - 1] > unsortedValue)
+   {
+    comp++;
+    swap++;
+    
+    array[scan] = array[scan - 1]; //swap values
+
+    scan--;
+    array[scan] = unsortedValue; //insert into proper position
+
+   } */
+   
+  // comp++;
+ // } 
+
+
+  printList(arr);
+
+  System.out.println("Comparisons: " + comp);
+  System.out.println("Swaps: " + swap);  
+ }
+
+
+ public static void quickSortCall(int[] a)
+ {
+  quickSort(a, 0, a.length - 1);
+
+  printList(a); //print sorted array to screen
+
+  System.out.println("Comparisons: " + compTotal);
+  System.out.println("Swaps: " + swapTotal);
+ }
+
+
+ private static void quickSort(int[] array, int index, int end)
+ { 
+  int pivotPosition;
+
+  if(index < end)
+  {   
+   pivotPosition = partition(array, index, end); //Get pivot
+
+   quickSort(array, index, pivotPosition - 1); //left sublist recursive call
+   quickSort(array, pivotPosition + 1, end); //right sublist
+  }   
+ }
+
+
+ private static int partition (int[] a, int index, int end)
+ {
+  int pivotValue;
+  int leftLast; //last element of the left sublist
+  int mid; //hold the mid-point subscript
+
+  mid = (index + end)/2; //will be pivot
+
+  swap(a, index, mid); //method below
+
+  pivotValue = a[index]; //save pivot for comparisons 
+
+  leftLast = index; //temporary assignment
+
+  //Move elements less than pivot to the left sublist
+  for (int scan = index + 1; scan <= end; scan++) //scans list
+  {
+   compTotal++; 
+
+   if(a[scan] < pivotValue)
+   {
+    swapTotal++;
+
+    leftLast++;
+
+    swap(a, leftLast, scan); //move elements to the left
+   }
+  }
+
+  swap(a, index, leftLast); //pivot moved to end of the left sublist
+
+  return leftLast; //return position of pivot value
+ }
+
+
+ private static void swap(int[] a, int x, int y)
+ {
+  int temp;
+
+  //swap
+  temp = a[x];   
+  a[x] = a[y];
+  a[y] = temp;
+ }
+}

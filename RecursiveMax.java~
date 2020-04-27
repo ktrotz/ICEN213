@@ -1,0 +1,29 @@
+
+
+public class RecursiveMax
+{
+  public static void main (String[] args)
+  {
+    int[] array = {3, 6, 9, 11, 1, 5};
+    
+    System.out.println("The max element of the array is " + max (array, 0, array.length -1)); //method call
+    
+  }
+  
+  public static int maxRec(int[] arr, int index, int end)
+  {
+    
+    if (index == (end + 1))   //Base case
+      return arr[index];
+      
+    else (arr[index] > arr[index + 1])
+    {
+      
+      return maxRec (arr, index, end);
+    }
+    
+    return maxRec (arr, index + 1, end);
+  }
+}
+                                                                   
+                                                      
